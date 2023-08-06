@@ -1,6 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
 
+
+const Button = ({ onClick, className, outline, children}) => {
+    return (
+        <button onClick={onClick} className={classNames('button', className, {
+            'button--outline': outline,
+        },
+        )}>
+            {children}
+            </button>
+    );
+}
 // class Button extends React.Component {
 //     render() {
 
@@ -20,17 +31,17 @@ import classNames from 'classnames';
 // }
 // }
 
-function Button(props) {
-    console.log(this)
-    return (
-        <button className={classNames('button', {
-                    'button--outline': props.outline,
-                },
-                )}>
-                    {props.children}
-                    </button>
-    )
-}
+// function Button(props) {
+//     console.log(this)
+//     return (
+//         <button className={classNames('button', {
+//                     'button--outline': props.outline,
+//                 },
+//                 )}>
+//                     {props.children}
+//                     </button>
+//     )
+// }
 
 
 export default Button;
