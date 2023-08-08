@@ -36,7 +36,7 @@ import React, { useState } from 'react'
 // }
 
 function Categories({items, onClickItem}) {
-    const [activeItem, setActiveItem] = React.useState(null);
+    const [activeItem, setActiveItem] = useState(null);
 
     const onSelectItem = (id) => {
         setActiveItem(id);
@@ -46,10 +46,13 @@ function Categories({items, onClickItem}) {
   return (
     <div className="categories">
               <ul>
-                <li className={activeItem === null ? 'active' : ''} onClick={() => onSelectItem(null)}>Все</li>
-                {
+                <li 
+                className={activeItem === null ? 'active' : ''} 
+                onClick={() => onSelectItem(null)}>Все</li>
+                {items && 
                     items.map((name, id) =>
-                     <li className={activeItem === id ? 'active' : ''}
+                     <li 
+                     className={activeItem === id ? 'active' : ''}
                      onClick={() => onSelectItem(id)}
                      key={`${name}_${id}`}>{name}</li>
                      )
