@@ -5,7 +5,7 @@ function SortPopup({items}) {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const [activeItem, setActiveItem] = useState(0);
 
-    const sortRef = useRef();
+    const sortRef = useRef(null);
     const activeLabel = items[activeItem]
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup);
