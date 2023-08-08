@@ -12,12 +12,12 @@ function SortPopup({items}) {
     }
 
 
-    const handleOutsideClick = (e) => {
-        if (!sortRef.current.contains(e.target)) {
-            setVisiblePopup(false);
-            console.log("outside")
-        }
-    };
+    // const handleOutsideClick = (e) => {
+    //     if (!sortRef.current.contains(e.target)) {
+    //         setVisiblePopup(false);
+            
+    //     }
+    // };
 
     const onSelectItem = (id) => {
         setActiveItem(id);
@@ -25,11 +25,21 @@ function SortPopup({items}) {
     }
    
     useEffect(() => {
-        document.body.addEventListener('click', handleOutsideClick)
+      const clickHandler = (e) => {
+        if (!sortRef.current.contains(e.target)) {
+          setVisiblePopup(false);
+        }
+      };
+      
+      document.body.addEventListener("click", clickHandler);
+    
+      return () => {
+        document.body.removeEventListener("click", clickHandler);
+      };
     }, []);
 
   return (
-    <div ref={sortRef} className="sort">
+    <div ref={sortRef}  className="sort">
               <div className="sort__label">
                 <svg
                 className={visiblePopup ? 'rotated' : ''}
