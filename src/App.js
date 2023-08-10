@@ -7,7 +7,14 @@ import {Home, Cart} from './pages';
 
 function App() {
 
-  
+const [pizzas, setPizzas] = React.useState([])
+React.useEffect(() => {
+  fetch('http://localhost:3000/db.json')
+  .then((resp) => resp.json())
+  .then(json=> {
+    setPizzas(json.pizzas)
+  });
+}, []);
 
 
   return (
@@ -15,7 +22,7 @@ function App() {
       <Header/>
       <div className="content">
         <Routes>
-      <Route path="/" Component={Home} exact/>
+      <Route path="/" Component={() => <Home items={pizzas}/>} exact/>
       <Route path="/cart" Component={Cart} exact/>
       </Routes>
       </div>
