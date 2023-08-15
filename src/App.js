@@ -2,13 +2,39 @@ import React from 'react'
 import axios from 'axios';
 
 
-import {connect} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import { setPizzas as setPizzasAction} from './redux/actions/pizzas';
 import { Route, Routes } from 'react-router-dom';
 import {Header} from './components';
 import {Home, Cart} from './pages';
 
 
+function App() {
+
+  const dispatch = useDispatch();
+  
+
+
+  React.useEffect(() => {
+
+      axios.get('http://localhost:3000/db.json')
+      .then(({data})=> {
+    dispatch(setPizzasAction(data.pizzas))
+      });
+  },[]);
+
+  return (
+    <div className="wrapper">
+      <Header/>
+      <div className="content">
+        <Routes>
+      <Route path="/" Component={Home} exact/>
+      <Route path="/cart" Component={Cart} exact/>
+      </Routes>
+      </div>
+    </div>
+  );
+}
 
 // function App() {
 
@@ -41,47 +67,24 @@ import {Home, Cart} from './pages';
 //   );
 // }
 
-class App extends React.Component{
+// class App extends React.Component{
 
-  componentDidMount() {
-    axios.get('http://localhost:3000/db.json')
-    .then(({data})=> {
-   this.props.savePizza(data.pizzas);
-  });
-  };
+//   componentDidMount() {
+//     axios.get('http://localhost:3000/db.json')
+//     .then(({data})=> {
+//    this.props.savePizza(data.pizzas);
+//   });
+//   };
 
   
-  render() {
-    // console.log(this.props.filters)
-    return (
-      <div className="wrapper">
-        <Header/>
-        <div className="content">
-          <Routes>
-        <Route path="/" Component={() => <Home items={this.props.items} />} exact/>
-        <Route path="/cart" Component={Cart} exact/>
-        </Routes>
-        </div>
-      </div>
-    );
-  }
-}
+//   render() {
+//     // console.log(this.props.filters)
+//   }
+// }
 
 
-const mapStateToProps = (state) => {
-  return {
-    items: state.pizzas.items,
-    filters: state.filters
-
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    savePizza: (items) => dispatch(setPizzasAction(items)),
-    dispatch
-  }
-}
-
+// // export default connect(mapStateToProps, mapDispatchToProps)(App);
 // export default connect(mapStateToProps, mapDispatchToProps)(App);
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+export default App;

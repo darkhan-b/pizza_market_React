@@ -40,6 +40,7 @@ function Categories({items, onClickItem}) {
 
     const onSelectItem = (id) => {
         setActiveItem(id);
+        onClickItem(id);
     }
 
     // console.log(items)
