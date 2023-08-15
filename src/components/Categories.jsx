@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 
 
 // class Categories extends React.Component {
@@ -35,32 +35,33 @@ import React, { useState } from 'react'
 //     }
 // }
 
-function Categories({items, onClickItem}) {
-    const [activeItem, setActiveItem] = useState(null);
+const Categories = memo(function Categories({items, onClickItem}) {
+  const [activeItem, setActiveItem] = useState(null);
 
-    const onSelectItem = (id) => {
-        setActiveItem(id);
-        onClickItem(id);
-    }
+  const onSelectItem = (id) => {
+      setActiveItem(id);
+      onClickItem(id);
+  }
 
-    // console.log(items)
-  return (
-    <div className="categories">
-              <ul>
-                <li 
-                className={activeItem === null ? 'active' : ''} 
-                onClick={() => onSelectItem(null)}>Все</li>
-                {items && 
-                    items.map((name, id) =>
-                     <li 
-                     className={activeItem === id ? 'active' : ''}
-                     onClick={() => onSelectItem(id)}
-                     key={`${name}_${id}`}>{name}</li>
-                     )
-                }
-              </ul>
-            </div>
-  )
-}
+  // console.log(items)
+return (
+  <div className="categories">
+            <ul>
+              <li 
+              className={activeItem === null ? 'active' : ''} 
+              onClick={() => onSelectItem(null)}>Все</li>
+              {items && 
+                  items.map((name, id) =>
+                   <li 
+                   className={activeItem === id ? 'active' : ''}
+                   onClick={() => onSelectItem(id)}
+                   key={`${name}_${id}`}>{name}</li>
+                   )
+              }
+            </ul>
+          </div>
+)
+
+});
 
 export default Categories;
