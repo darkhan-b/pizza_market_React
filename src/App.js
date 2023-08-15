@@ -17,9 +17,9 @@ function App() {
 
   React.useEffect(() => {
 
-      axios.get('http://localhost:3000/db.json')
+      axios.get('http://localhost:3001/pizzas?_order=desc&_sort=price')
       .then(({data})=> {
-    dispatch(setPizzasAction(data.pizzas))
+    dispatch(setPizzasAction(data))
       });
   },[]);
 
