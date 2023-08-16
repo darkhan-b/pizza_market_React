@@ -1,9 +1,7 @@
 import React from 'react'
-import axios from 'axios';
 
 
-import {useDispatch} from 'react-redux'
-import { setPizzas as setPizzasAction} from './redux/actions/pizzas';
+
 import { Route, Routes } from 'react-router-dom';
 import {Header} from './components';
 import {Home, Cart} from './pages';
@@ -11,17 +9,7 @@ import {Home, Cart} from './pages';
 
 function App() {
 
-  const dispatch = useDispatch();
-  
 
-
-  React.useEffect(() => {
-
-      axios.get('http://localhost:3001/pizzas?_order=desc&_sort=price')
-      .then(({data})=> {
-    dispatch(setPizzasAction(data))
-      });
-  },[]);
 
   return (
     <div className="wrapper">
