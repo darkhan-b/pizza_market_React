@@ -11,7 +11,7 @@ function LoadingBlock() {
     viewBox="0 0 280 460"
     backgroundColor="#f3f3f3"
     foregroundColor="#ecebeb"
-   
+    className='pizza-block'
   >
     <circle cx="132" cy="142" r="115" /> 
     <rect x="0" y="273" rx="6" ry="6" width="280" height="26" /> 

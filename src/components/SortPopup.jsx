@@ -9,19 +9,11 @@ const SortPopup = memo(function SortPopup({items,activeSortType, onClickSortType
 
   const activeLabel = items.find((obj) => obj.type === activeSortType).name;
 
-  console.log(onClickSortType)
 
   const toggleVisiblePopup = () => {
       setVisiblePopup(!visiblePopup);
   }
 
-
-  // const handleOutsideClick = (e) => {
-  //     if (!sortRef.current.contains(e.target)) {
-  //         setVisiblePopup(false);
-          
-  //     }
-  // };
 
   const onSelectItem = (id) => {
       if(onClickSortType) {
@@ -68,7 +60,7 @@ return (
               {items && 
                   items.map((obj, id) =>
                    <li 
-                   onClick={() => onSelectItem(obj.type)}
+                   onClick={() => onSelectItem(obj)}
                    className={activeSortType === obj.type ? 'active' : ''}
                    key={`${obj.type}_${id}`}>{obj.name}</li>
 

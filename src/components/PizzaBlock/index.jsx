@@ -9,6 +9,7 @@ function PizzaBlock({name, imageUrl, price, types, sizes}) {
   const typeNames=['тонкое', 'традиционное']
   const availableSizes=[26,30,40]
   const [activeType, setActiveType] = useState(types[0]);
+  // проверить почему не по начальным размерам стоит пицца
   const [activeSize, setActiveSize] = useState(sizes[0]);
 
   

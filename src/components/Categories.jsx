@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
 
@@ -61,7 +61,7 @@ return (
 });
 
 Categories.propTypes = { // prop-types strict
-  activeCategory: PropTypes.oneOf([PropTypes.number, null]),
+  // activeCategory: PropTypes.oneOf([PropTypes.number, null]),
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClickCategory: PropTypes.func
 
