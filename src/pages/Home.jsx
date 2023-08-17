@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useEffect, useCallback} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Categories, LoadingBlock, PizzaBlock, SortPopup} from '../components';
 
 
 import {setCategory, setSortBy} from '../redux/actions/filters'
 import { fetchPizzas} from '../redux/actions/pizzas';
+
 
 const categoryNames = [
   'Мясные',
@@ -23,27 +24,33 @@ const sortItems = [
 function Home() {
   const dispatch = useDispatch()
   const items = useSelector(({pizzas}) => pizzas.items);
+  const cartItems = useSelector(({cart}) => cart.items);
+
   const isLoaded = useSelector(({pizzas}) => pizzas.isLoaded);
   const {category, sortBy} = useSelector(({filters}) => filters);
 
 
-
-  React.useEffect(() => {
-    // Перенести redux и подключить redux-thunk
-    // следить за фильтрацией и сортировкой, подставлять параметры в URL из redux
-    // сделать имитацию загрузки пицц
+  useEffect(() => {
         dispatch(fetchPizzas(sortBy, category))
      },[category, sortBy]);
 
 
 
-  const onSelectCategory =  React.useCallback((id) => {
+  const onSelectCategory =  useCallback((id) => {
     dispatch(setCategory(id));
   }, []);
 
-  const onSelectSortType =  React.useCallback((type) => {
+  const onSelectSortType =  useCallback((type) => {
     dispatch(setSortBy(type));
   }, []);
+
+
+  const handleAddPizzaToCart = (obj) => {
+    dispatch({
+      type: 'ADD_PIZZA_CART',
+      payload: obj,
+    })
+  };
 
 
   return (
@@ -64,8 +71,9 @@ function Home() {
     <div className="content__items">
       {isLoaded 
       ? items.map((obj) => <PizzaBlock
-      isLoading={true}
+      onClickAddPizza={handleAddPizzaToCart}
       key={obj.id}
+      addedCount={cartItems[obj.id] && cartItems[obj.id].length}
       {...obj}/>) :
        Array(10).fill(0).map((_, index) => <LoadingBlock key={index}/> )}
 
