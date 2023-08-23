@@ -1,7 +1,7 @@
 import React from 'react'
-import { CartItem } from '../components'
+import { CartItem, Button } from '../components'
 import {useSelector} from 'react-redux'
-import {clearCart, removeCartItem} from "../redux/actions/cart";
+import {clearCart, removeCartItem, plusCartItem, minusCartItem} from "../redux/actions/cart";
 import {useDispatch} from 'react-redux'
 import CartEmpty from '../assets/img/empty-cart.png'
 import {Link} from 'react-router-dom'
@@ -26,6 +26,20 @@ function Cart() {
       dispatch(removeCartItem(id))
     }
   }
+
+  const onPlusItem = (id) => {
+    dispatch(plusCartItem(id));
+  }
+
+  const onMinusItem = (id) => {
+    dispatch(minusCartItem(id));
+  }
+
+  const onClickOrder = () => {
+    console.log("ВАШ ЗАКАЗ", items )
+  }
+
+
 
   return (
     <div className="content">
@@ -55,13 +69,16 @@ function Cart() {
               {
                 addedPizzas.map(obj => 
                 <CartItem 
+                key={obj.id}
                 id={obj.id}
                   name={obj.name} 
                   type={obj.type} 
                   size={obj.size} 
                   totalPrice={items[obj.id].totalPrice} 
                   totalCount={items[obj.id].items.length}
-                  onRemove={onRemoveitem}/>)
+                  onRemove={onRemoveitem}
+                  onMinus={onMinusItem}
+                  onPlus={onPlusItem}/>)
               }
               <CartItem name="Пепперони Фреш с перцем" type="тонкое" size={26}/>
             </div>
@@ -76,15 +93,17 @@ function Cart() {
 <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
 
-                  <span>Вернуться назад</span>
+<Link to="/">
+              <span>Вернуться назад</span>
+            </Link>
                 </a>
-                <div className="button pay-btn">
+                <Button onClick={onClickOrder} className="pay-btn">
                   <span>Оплатить сейчас</span>
-                </div>
+                </Button>
               </div>
             </div>
           </div> : <div className="cart cart--empty">
-            <h2>Корзина пустая <icon>😕</icon></h2>
+            <h2>Корзина пустая <i>😕</i></h2>
             <p>
               Вероятней всего, вы не заказывали ещё пиццу.<br />
               Для того, чтобы заказать пиццу, перейди на главную страницу.
